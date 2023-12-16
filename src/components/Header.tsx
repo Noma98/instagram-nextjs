@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
+import ColorBtn from '@/components/ui/ColorBtn';
 import {
   HomeFillIcon,
   HomeIcon,
@@ -48,6 +49,9 @@ function Header() {
               <Link href={href}>{pathname === href ? activeIcon : icon}</Link>
             </li>
           ))}
+          <li>
+            <ColorBtn onClick={() => {}} text='Sign in' />
+          </li>
         </ul>
       </nav>
     </header>
