@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession, signIn, signOut } from 'next-auth/react';
+
 import React from 'react';
 
 import ColorBtn from '@/components/ui/ColorBtn';
@@ -33,8 +35,16 @@ const menu = [
 ];
 
 function Header() {
+  const { data: session } = useSession();
   const pathname = usePathname();
-
+  const onSignIn = () => {
+    signIn();
+  };
+  const onSignOut = () => {
+    if (session) {
+      signOut();
+    }
+  };
   return (
     <header className='py-4 px-8 z-10 border-b border-gray-100 flex justify-between'>
       <button>
@@ -50,7 +60,11 @@ function Header() {
             </li>
           ))}
           <li>
-            <ColorBtn onClick={() => {}} text='Sign in' />
+            {session ? (
+              <ColorBtn onClick={onSignOut} text='Sign out' />
+            ) : (
+              <ColorBtn onClick={onSignIn} text='Sign in' />
+            )}
           </li>
         </ul>
       </nav>
